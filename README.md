@@ -131,64 +131,14 @@ testingget.json is
                 }
             ]
         }
-    },
-    {
-        "Endpoint": {
-            "Template": "/testingget/ThrowsException",
-            "HttpMethod": "Get"
-        },
-        "Downstream": {
-            "RunAsync": false,
-            "Operations": [
-                {
-                    "Operation": "Call",
-                    "Template": "/api/TestingGet/ThrowsException",
-                    "ServerHost": "localhost",
-                    "ServerPort": 44369,
-                    "Scheme": "https",
-                    "HttpMethod": "Get",
-                    "Directives": [],
-                    "OperationTag": "_get_all_persons"
-                },
-                {
-                    "Operation": "Return",
-                    "ReturnTag": "_get_all_persons",
-                    "OperationTag": "_returnTag"
-                }
-            ]
-        }
-    },
-    {
-        "Endpoint": {
-            "Template": "/testingget/ReturnsNull",
-            "HttpMethod": "Get"
-        },
-        "Downstream": {
-            "RunAsync": false,
-            "Operations": [
-                {
-                    "Operation": "Call",
-                    "Template": "/api/TestingGet/ReturnsNull",
-                    "ServerHost": "localhost",
-                    "ServerPort": 44369,
-                    "Scheme": "https",
-                    "HttpMethod": "Get",
-                    "Directives": [],
-                    "OperationTag": "_get_all_persons"
-                },
-                {
-                    "Operation": "Return",
-                    "ReturnTag": "_get_all_persons",
-                    "OperationTag": "_returnTag"
-                }
-            ]
-        }
     }
 ]
 
 
 ```
 **Note: Directives are not implemented**
+
+<h2> Operation Types </h2>
 
 - It allows creating multiple operations for each mapping. Operations can be run sync or async. In async mode
 operations are executed in parallel but not without taking into account the eventual dependencies in between them
@@ -198,7 +148,15 @@ There are 3 types of operations
   - Return -> internal operation which stores the parameter from one of the previous calls
   - AggregateResponse -> aggregation class defined by the user which can use the captured responses
 
-<h3> Implementing an aggregate response </h3>
+The OperationTag:
+  - Operation = Call : it stores the response with the tag name
+  - Operation = Return : retrieves the value and returns it
+  - Operation = AggregateResponse: stores the aggregate value in the store with the tag
+The ResponseTags:
+  - Operation = AggregateResponse: tells the aggregate to use the stored values from the list
+  ``` THey are injected with [OperationTag("_call_get_movies")]OperationResult movieResult ```
+
+<h2> Implementing an aggregate response </h2>
 
 - The configuration
 
@@ -268,6 +226,30 @@ There are 3 types of operations
 
                 return response;
             }).ConfigureAwait(false);
+        }
+    }
+```
+The called api
+```
+    [ApiController]
+    [Route("api/Movies")]
+    public class MoviesControllers : ControllerBase
+    {
+        public static List<Movie> movies = new List<Movie>
+        {
+            new Movie{ MovieName = "AmericanGangster" , Rating = 9.7}
+        };
+
+        [HttpGet]
+        public IEnumerable<Movie> Get()
+        {
+            return movies;
+        }
+
+        [HttpGet("{movieName}")]
+        public Movie GetMovie(string movieName, double rating)
+        {
+            return movies.Find(x => x.MovieName == movieName && x.Rating == rating);
         }
     }
 ```
