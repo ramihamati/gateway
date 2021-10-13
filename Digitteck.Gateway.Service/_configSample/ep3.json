@@ -1,0 +1,44 @@
+{
+    "Endpoint": {
+        "Template": "/api/movies/{id}",
+        "HttpMethod": "Post"
+    },
+    "Downstream": {
+        "Operations": [
+            {
+                "Operation": "Call",
+                "Template": "/api/movies/{id}",
+                "ServerHost": "",
+                "ServerPort": "",
+                "Scheme": "https",
+                "HttpMethod": "Post",
+                //"Directives": [],
+                "Response": "_tagName1"
+            },
+            {
+                "Operation": "Call",
+                "Template": "/api/movies/{id}",
+                "ServerHost": "",
+                "ServerPort": "",
+                "Scheme": "https",
+                "HttpMethod": "Post",
+                //"Directives": [],
+                "OperationTag": "_tagName2"
+            },
+            {
+                "Operation": "AggregateResponses",
+                "ResponseTags": [
+                    "_tagName1",
+                    "_tagName2"
+                ],
+                "Executor": "FullPathToExetucingClass",
+                "OperationTag": "_tagName3"
+            },
+            {
+                "Operation": "Return",
+                "OperationTag": "_returnTag",
+                "ReturnTag": "_tagName3"
+            }
+        ]
+    }
+}

@@ -1,0 +1,25 @@
+{
+  "RouteSources": [
+    {
+      "file": "ep1.json",
+      "type": "multiple"
+    },
+    {
+      "file": "ep2.json",
+      "type": "single"
+    },
+    {
+      "file": "ep3.json",
+      "type": "single"
+    }
+  ],
+  "Directives": [
+    {
+      "Directive": "UseRateLimiting",
+      "ClientWhitelist": [],
+      "Period": "",
+      "PeriodTimespan": 1,
+      "Limit": 5
+    }
+  ]
+}

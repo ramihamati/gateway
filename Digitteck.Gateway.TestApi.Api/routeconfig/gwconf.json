@@ -1,0 +1,15 @@
+{
+    "RouteSources": [
+        "epmovies.json",
+        "testingget.json"
+    ],
+    "Directives": [
+        {
+            "Directive": "UseRateLimiting",
+            "ClientWhitelist": [],
+            "Period": "",
+            "PeriodTimespan": 1,
+            "Limit": 5
+        }
+    ]
+}

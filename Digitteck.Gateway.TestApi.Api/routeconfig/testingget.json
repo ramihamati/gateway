@@ -1,0 +1,158 @@
+[
+    {
+        "Endpoint": {
+            "Template": "/testingget/all",
+            "HttpMethod": "Get"
+        },
+        "Downstream": {
+            "RunAsync": false,
+            "Operations": [
+                {
+                    "Operation": "Call",
+                    "Template": "/api/TestingGet/All",
+                    "ServerHost": "localhost",
+                    "ServerPort": 44369,
+                    "Scheme": "https",
+                    "HttpMethod": "Get",
+                    "Directives": [],
+                    "OperationTag": "_get_all_persons"
+                },
+                {
+                    "Operation": "Return",
+                    "ReturnTag": "_get_all_persons",
+                    "OperationTag": "_returnTag"
+                }
+            ]
+        }
+    },
+    {
+        "Endpoint": {
+            "Template": "/testingget/LastName/{lastName}",
+            "HttpMethod": "Get"
+        },
+        "Downstream": {
+            "RunAsync": false,
+            "Operations": [
+                {
+                    "Operation": "Call",
+                    "Template": "/api/TestingGet/LastName/{lastName}",
+                    "ServerHost": "localhost",
+                    "ServerPort": 44369,
+                    "Scheme": "https",
+                    "HttpMethod": "Get",
+                    "Directives": [],
+                    "OperationTag": "_get_all_persons"
+                },
+                {
+                    "Operation": "Return",
+                    "ReturnTag": "_get_all_persons",
+                    "OperationTag": "_returnTag"
+                }
+            ]
+        }
+    },
+    {
+        "Endpoint": {
+            "Template": "/testingget/Query?firstName={firstName}&lastName={lastName}",
+            "HttpMethod": "Get"
+        },
+        "Downstream": {
+            "RunAsync": false,
+            "Operations": [
+                {
+                    "Operation": "Call",
+                    "Template": "/api/TestingGet/Query?firstName={firstName}&lastName={lastName}",
+                    "ServerHost": "localhost",
+                    "ServerPort": 44369,
+                    "Scheme": "https",
+                    "HttpMethod": "Get",
+                    "Directives": [],
+                    "OperationTag": "_get_all_persons"
+                },
+                {
+                    "Operation": "Return",
+                    "ReturnTag": "_get_all_persons",
+                    "OperationTag": "_returnTag"
+                }
+            ]
+        }
+    },
+    {
+        "Endpoint": {
+            "Template": "/testingget/Query2?firstName={firstName}",
+            "HttpMethod": "Get"
+        },
+        "Downstream": {
+            "RunAsync": false,
+            "Operations": [
+                {
+                    "Operation": "Call",
+                    "Template": "/api/TestingGet/Query2?firstName={firstName}",
+                    "ServerHost": "localhost",
+                    "ServerPort": 44369,
+                    "Scheme": "https",
+                    "HttpMethod": "Get",
+                    "Directives": [],
+                    "OperationTag": "_get_all_persons"
+                },
+                {
+                    "Operation": "Return",
+                    "ReturnTag": "_get_all_persons",
+                    "OperationTag": "_returnTag"
+                }
+            ]
+        }
+    },
+    {
+        "Endpoint": {
+            "Template": "/testingget/ThrowsException",
+            "HttpMethod": "Get"
+        },
+        "Downstream": {
+            "RunAsync": false,
+            "Operations": [
+                {
+                    "Operation": "Call",
+                    "Template": "/api/TestingGet/ThrowsException",
+                    "ServerHost": "localhost",
+                    "ServerPort": 44369,
+                    "Scheme": "https",
+                    "HttpMethod": "Get",
+                    "Directives": [],
+                    "OperationTag": "_get_all_persons"
+                },
+                {
+                    "Operation": "Return",
+                    "ReturnTag": "_get_all_persons",
+                    "OperationTag": "_returnTag"
+                }
+            ]
+        }
+    },
+    {
+        "Endpoint": {
+            "Template": "/testingget/ReturnsNull",
+            "HttpMethod": "Get"
+        },
+        "Downstream": {
+            "RunAsync": false,
+            "Operations": [
+                {
+                    "Operation": "Call",
+                    "Template": "/api/TestingGet/ReturnsNull",
+                    "ServerHost": "localhost",
+                    "ServerPort": 44369,
+                    "Scheme": "https",
+                    "HttpMethod": "Get",
+                    "Directives": [],
+                    "OperationTag": "_get_all_persons"
+                },
+                {
+                    "Operation": "Return",
+                    "ReturnTag": "_get_all_persons",
+                    "OperationTag": "_returnTag"
+                }
+            ]
+        }
+    }
+]

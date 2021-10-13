@@ -1,0 +1,53 @@
+[
+    {
+        "Endpoint": {
+            "Template": "/api/movies/{id}",
+            "HttpMethod": "Post"
+        },
+        "Downstream": {
+            "Operations": [
+                {
+                    "Operation": "Call",
+                    "Template": "/api/movies/{id}",
+                    "ServerHost": "",
+                    "ServerPort": "",
+                    "HttpMethod": "Post",
+                    "Directives": [
+                        {
+                            "Directive": "UseRateLimiting",
+                            "ClientWhitelist": [],
+                            "Period": "",
+                            "PeriodTimespan": 0,
+                            "Limit": 0
+                        },
+                        {
+                            "Directive": "AddQueriesToRequest",
+                            "Executor": "FullPathToClass",
+                            "Arguments": []
+                        },
+                        {
+                            "Directive": "AddHeadersToRequest",
+                            "Executor": "FullPathToClass",
+                            "Arguments": []
+                        },
+                        {
+                            "Directive": "UseCircuitBreaker",
+                            "AttemptsToOpenCircuit": 3,
+                            "FailoutResponseExecutor": "PathToClass",
+                            "TimeoutValue": 1
+                        },
+                        {
+                            "Directive": "UseRetryPolicy"
+                        }
+                    ],
+                    "OperationTag": "_tagName3"
+                },
+                {
+                    "Operation": "Return",
+                    "OperationTag": "_returnTag",
+                    "ReturnTag": "_tagName3"
+                }
+            ]
+        }
+    }
+]

@@ -1,0 +1,41 @@
+{
+    "Endpoint": {
+        "Template": "/api/movies/{id}",
+        "HttpMethod": "Post"
+    },
+    "Downstream": {
+        "Operations": [
+            {
+                "Operation": "Call",
+                "Template": "/api/movies/{id}",
+                "ServerHost": "",
+                "ServerPort": "",
+                "HttpMethods": "Post",
+                //"Directives": [],
+                "Response": "_tagName1"
+            },
+            {
+                "Operation": "Call",
+                "Template": "/api/movies/{id}",
+                "ServerUrl": "",
+                "ServerPort": "",
+                "HttpMethod": "Post",
+                //"Directives": [
+
+                //  {
+                //    "Name": "UseResponseFromPreviousCall",
+                //    "TagResponse": "_tagName1",
+                //    "Executor": "Class_AddObjectAsQueryParam",
+                //    "Arguments": ""
+                //  }
+                //],
+                "OperationTag": "_tagName2"
+            },
+            {
+                "Operation": "Return",
+                "OperationTag": "_returnTag",
+                "ReturnTag": "_tagName2"
+            }
+        ]
+    }
+}
