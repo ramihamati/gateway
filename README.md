@@ -254,3 +254,95 @@ The called api
         }
     }
 ```
+
+<h2>Adding the gateway</h2>
+
+`services.AddGW("routeconfig/gwconf.json");`
+
+where `gwconf.json` is 
+
+```json
+{
+    "RouteSources": [
+        "epmovies.json",
+        "testingget.json"
+    ],
+    "Directives": [
+        {
+            "Directive": "UseRateLimiting",
+            "ClientWhitelist": [],
+            "Period": "",
+            "PeriodTimespan": 1,
+            "Limit": 5
+        }
+    ]
+}
+```
+
+and `epmovies.json` is
+
+```json
+[
+    {
+        "Endpoint": {
+            "Template": "/movies",
+            "HttpMethod": "Get"
+        },
+        "Downstream": {
+            "RunAsync": false,
+            "Operations": [
+                {
+                    "Operation": "Call",
+                    "Template": "/api/movies",
+                    "ServerHost": "localhost",
+                    "Scheme": "https",
+                    "ServerPort": 44369,
+                    "HttpMethod": "Get",
+                    "Directives": [],
+                    "OperationTag": "_call_get_movies"
+                },
+                {
+                    "Operation": "Return",
+                    "OperationTag": "_returnTag",
+                    "ReturnTag": "_call_get_movies"
+                }
+            ]
+        }
+    },
+    {
+        "Endpoint": {
+            "Template": "/movies/{movieName}?Rating={rating}",
+            "HttpMethod": "Get"
+        },
+        "Downstream": {
+            "RunAsync": false,
+            "Operations": [
+                {
+                    "Operation": "Call",
+                    "Template": "/api/movies/{movieName}?Rating={rating}",
+                    "ServerHost": "localhost",
+                    "ServerPort": 44369,
+                    "Scheme": "https",
+                    "HttpMethod": "Get",
+                    "Directives": [],
+                    "OperationTag": "_call_get_movies"
+                },
+                {
+                    "Operation": "AggregateResponses",
+                    "ResponseTags": [
+                        "_call_get_movies"
+                    ],
+                    "Executor": "Digitteck.Gateway.TestApi.Api, Digitteck.Gateway.TestApi.Api.Aggregates.MovieAggregateResponse",
+                    "OperationTag": "_call_get_movies_aggregated"
+                },
+                {
+                    "Operation": "Return",
+                    "ReturnTag": "_call_get_movies_aggregated",
+                    "OperationTag": "_returnTag"
+                }
+            ]
+        }
+    }
+]
+
+```
