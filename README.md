@@ -152,6 +152,7 @@ The OperationTag:
   - Operation = Call : it stores the response with the tag name
   - Operation = Return : retrieves the value and returns it
   - Operation = AggregateResponse: stores the aggregate value in the store with the tag
+
 The ResponseTags:
   - Operation = AggregateResponse: tells the aggregate to use the stored values from the list
   ``` THey are injected with [OperationTag("_call_get_movies")]OperationResult movieResult ```
